@@ -40,7 +40,13 @@ namespace DependencyInjectionContainerLibrary
                 }
             }
 
-             
+            if ((mainType = _configuration.HasImplType(type)) != null)
+            {
+                Implementation implementation = _configuration.GetFirstImplementation(mainType);
+                object obj = Resolve(implementation);
+                searchPointInstance();
+                return obj as TType;
+            } 
             
             if (_configuration.HasType(type))
             {

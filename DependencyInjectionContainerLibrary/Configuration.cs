@@ -27,7 +27,21 @@ namespace DependencyInjectionContainerLibrary
             _configuration[dependency].Add(new Implementation(implementation, isSingleton));
         }
 
-        
+        public Type HasImplType(Type type)
+        {
+            foreach (KeyValuePair<Type, List<Implementation>> pair in _configuration)
+            {
+                foreach (Implementation impl in pair.Value)
+                {
+                    if (impl.Type == type)
+                    {
+                        return pair.Key;
+                    }
+                }
+            }
+
+            return null;
+        }
         
         public bool HasType(Type type)
         {
